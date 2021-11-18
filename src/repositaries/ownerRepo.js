@@ -15,7 +15,7 @@ export const ownerRegisterRepo = async(ownerInfo) => {
             const postData = new Owner(ownerInfo)
             const hashedPassword = await bcrypt.hash(ownerInfo.password, 10)
             postData.password = hashedPassword
-            const result = postData.save()
+            const result = await postData.save()
             return result
 
         } else{
@@ -32,7 +32,7 @@ export const ownerLoginRepo = async(ownerAuthDetails) => {
         const getOwner = await Owner.findOne({email : ownerAuthDetails.email})
         if(getOwner && await bcrypt.compare(ownerAuthDetails.password, getOwner.password)){
             const token = jwt.sign(
-                {ownerId : getOwner._id}, SECRETKEY, {expiresIn : '1h'}
+                {ownerId : getOwner._id, email : getOwner.email}, SECRETKEY, {expiresIn : '1h'}
             )
             return token
         } else{
