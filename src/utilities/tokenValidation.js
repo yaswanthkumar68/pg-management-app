@@ -13,6 +13,7 @@ export const validateToken = (req, res, next) => {
     try{
         const verifiedUser = jwt.verify(token, SECRETKEY)
         req.body.ownerId = verifiedUser.ownerId
+        req.ownerId = verifiedUser.ownerId
         next()
     } catch(err){
         console.log(err)
