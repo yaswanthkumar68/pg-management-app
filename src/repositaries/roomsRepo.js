@@ -34,6 +34,11 @@ export const putRoomRepo = async(roomInfo, roomId) => {
         })
         roomInfo.buildingId = getBuildingId._id.toString()
 
+        const getRoomId = await Room.findOne({
+            roomName : roomInfo.roomId
+        })
+        roomInfo.roomId = getRoomId._id.toString()
+        
         const result = await Room.findByIdAndUpdate(roomId, roomInfo, {new : true, runValidators : true})
         return result
     } catch(err){
