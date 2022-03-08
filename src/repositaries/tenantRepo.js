@@ -21,6 +21,7 @@ export const postTenantRepo = async(tenantInfo) => {
             
             const postData = await new Tenant(tenantInfo)
             const result = await postData.save()
+            console.log(result)
             return result
         } else{
             return "Tenant already present in this room"
