@@ -10,7 +10,7 @@ export const postBuildingRepo = async(buildingInfo) => {
         
         if(!isBuildingExist){
             const postData = new Building(buildingInfo)
-            const result = postData.save()
+            const result = await postData.save()
             return result
         } else{
             // console.log('exists')

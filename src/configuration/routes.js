@@ -17,6 +17,12 @@ import {
     getRoomByIdController,
     deleteRoomController
 } from '../controllers/roomController.js'
+import {
+    postTenantController,
+    deleteTenantController,
+    getTenantController,
+    putTenantController
+} from '../controllers/tenantController.js'
 import { validateToken } from "../utilities/tokenValidation.js";
 import { upload } from "../utilities/multerValidation.js";
 
@@ -34,11 +40,20 @@ router.delete('/building/:id', validateToken, deleteBuildingController)
 
 // room routes
 router.get('/room/:id', validateToken, getRoomController)
-router.get('/rooms', getAllRoomsController)
-router.get('/rooms/:id', getRoomByIdController)
 router.post('/room', validateToken, upload.array("files"), postRoomController)
 router.put('/room/:id', validateToken, upload.array("files"), putRoomController)
 router.delete('/room/:id', validateToken, deleteRoomController)
 
+// for users
+router.get('/rooms', getAllRoomsController)
+router.get('/rooms/:id', getRoomByIdController)
+
+// tenant routes
+router.post('/tenant', validateToken, upload.single("files"), postTenantController)
+router.delete('/tenant/:id', validateToken, deleteTenantController)
+router.get('/tenant', validateToken, getTenantController)
+router.put('/tenant/:id', validateToken, upload.single("files"), putTenantController)
+
 
 export default router
+
